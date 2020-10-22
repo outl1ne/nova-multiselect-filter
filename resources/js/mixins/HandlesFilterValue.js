@@ -13,11 +13,11 @@ export default {
     getInitialFilterValuesArray() {
       try {
         if (!this.value) return void 0;
-        if (Array.isArray(this.filter.currentValue)) return this.filter.currentValue;
+        if (Array.isArray(this.value)) return this.value;
 
         // Attempt to parse the field value
-        if (typeof this.filter.currentValue === 'string') {
-          let value = this.filter.currentValue;
+        if (typeof this.value === 'string') {
+          let value = this.value;
           while (typeof value === 'string') value = JSON.parse(value);
           if (Array.isArray(value)) return value;
         }

@@ -65,10 +65,6 @@ export default {
     max: void 0,
   }),
 
-  mounted() {
-    console.log(this.filter);
-  },
-
   methods: {
     handleChange(value) {
       this.isTouched = true;
