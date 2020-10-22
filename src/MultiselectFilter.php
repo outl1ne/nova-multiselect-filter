@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
+
 
 namespace OptimistDigtal\NovaMultiselectFilter;
 
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 
@@ -14,10 +16,10 @@ abstract class MultiselectFilter extends Filter
     /**
      * Apply the filter to the given query.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed $value
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Request $request
+     * @param Builder $query
+     * @param $value
+     * @return Builder
      */
     public function apply(Request $request, $query, $value)
     {
@@ -27,7 +29,7 @@ abstract class MultiselectFilter extends Filter
     /**
      * Get the filter's available options.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array
      */
     public function options(Request $request)
@@ -49,15 +51,17 @@ abstract class MultiselectFilter extends Filter
     {
         $container = Container::getInstance();
 
-        if (is_callable($this->options($container->make(Request::class)))) $options = call_user_func($this->options($container->make(Request::class)));
-        $options = collect($this->options($container->make(Request::class)) ?? []);
+        if (is_callable($this->options($container->make(Request::class)))) {
+            $options = call_user_func($this->options($container->make(Request::class)));
+        }
 
+        $options = collect($this->options($container->make(Request::class)) ?? []);
         $isOptionGroup = $options->contains(function ($label, $value) {
             return is_array($label);
         });
 
         if ($isOptionGroup) {
-            $_options = $options
+            return $options
                 ->map(function ($value, $key) {
                     return collect($value + ['value' => $key]);
                 })
@@ -67,8 +71,6 @@ abstract class MultiselectFilter extends Filter
                 })
                 ->values()
                 ->toArray();
-
-            return $_options;
         }
 
         return $options->map(function ($label, $value) {

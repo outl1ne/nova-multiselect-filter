@@ -6,33 +6,33 @@
 
     <div class="p-2 flex relative">
       <multiselect
-          @input="handleChange"
-          @close="handleClose"
-          @remove="handleRemove"
-          @open="handleOpen"
-          track-by="value"
-          label="label"
-          :group-label="isOptionGroups ? 'label' : void 0"
-          :group-values="isOptionGroups ? 'values' : void 0"
-          :group-select="filter.groupSelect || false"
-          ref="multiselect"
-          :value="selected"
-          :options="computedOptions"
-          :placeholder="filter.placeholder || filter.name"
-          :close-on-select="filter.max === 1"
-          :clear-on-select="false"
-          :multiple="true"
-          :max="max || filter.max || null"
-          :optionsLimit="filter.optionsLimit || 1000"
-          :limitText="count => __('novaMultiselect.limitText', { count: String(count || '') })"
-          :selectLabel="__('novaMultiselect.selectLabel')"
-          :selectGroupLabel="__('novaMultiselect.selectGroupLabel')"
-          :selectedLabel="__('novaMultiselect.selectedLabel')"
-          :deselectLabel="__('novaMultiselect.deselectLabel')"
-          :deselectGroupLabel="__('novaMultiselect.deselectGroupLabel')"
+        @input="handleChange"
+        @close="handleClose"
+        @remove="handleRemove"
+        @open="handleOpen"
+        track-by="value"
+        label="label"
+        :group-label="isOptionGroups ? 'label' : void 0"
+        :group-values="isOptionGroups ? 'values' : void 0"
+        :group-select="filter.groupSelect || false"
+        ref="multiselect"
+        :value="selected"
+        :options="computedOptions"
+        :placeholder="filter.placeholder || filter.name"
+        :close-on-select="filter.max === 1"
+        :clear-on-select="false"
+        :multiple="true"
+        :max="max || filter.max || null"
+        :optionsLimit="filter.optionsLimit || 1000"
+        :limitText="count => __('novaMultiselect.limitText', { count: String(count || '') })"
+        :selectLabel="__('novaMultiselect.selectLabel')"
+        :selectGroupLabel="__('novaMultiselect.selectGroupLabel')"
+        :selectedLabel="__('novaMultiselect.selectedLabel')"
+        :deselectLabel="__('novaMultiselect.deselectLabel')"
+        :deselectGroupLabel="__('novaMultiselect.deselectGroupLabel')"
       >
         <template slot="maxElements">
-          {{ __('novaMultiselect.maxElements', {max: String(filter.max || '')}) }}
+          {{ __('novaMultiselect.maxElements', { max: String(filter.max || '') }) }}
         </template>
 
         <template slot="noResult">
@@ -51,10 +51,10 @@
 
 import HandlesFilterValue from '../mixins/HandlesFilterValue';
 import Multiselect from 'vue-multiselect';
-import {Filterable, InteractsWithQueryString} from 'laravel-nova';
+import { Filterable, InteractsWithQueryString } from 'laravel-nova';
 
 export default {
-  components: {Multiselect},
+  components: { Multiselect },
   mixins: [Filterable, InteractsWithQueryString, HandlesFilterValue],
   props: ['resourceName', 'resourceId', 'filterKey'],
 
@@ -67,7 +67,7 @@ export default {
   }),
 
   mounted() {
-      console.log(this.filter);
+    console.log(this.filter);
   },
 
   methods: {
@@ -112,8 +112,8 @@ export default {
   computed: {
     filter() {
       return this.$store.getters[`${this.resourceName}/getFilter`](
-          this.filterKey
-      )
+        this.filterKey,
+      );
     },
 
     value() {
@@ -141,5 +141,5 @@ export default {
       return values.length ? values : '';
     },
   },
-}
+};
 </script>
