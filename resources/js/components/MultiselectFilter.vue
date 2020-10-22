@@ -48,7 +48,6 @@
 </template>
 
 <script>
-
 import HandlesFilterValue from '../mixins/HandlesFilterValue';
 import Multiselect from 'vue-multiselect';
 import { Filterable, InteractsWithQueryString } from 'laravel-nova';
@@ -111,9 +110,7 @@ export default {
 
   computed: {
     filter() {
-      return this.$store.getters[`${this.resourceName}/getFilter`](
-        this.filterKey,
-      );
+      return this.$store.getters[`${this.resourceName}/getFilter`](this.filterKey);
     },
 
     value() {

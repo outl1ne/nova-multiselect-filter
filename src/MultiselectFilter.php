@@ -10,7 +10,7 @@ use Laravel\Nova\Filters\Filter;
 
 abstract class MultiselectFilter extends Filter
 {
-    public $component = 'nova-multiselect-filter-2';
+    public $component = 'nova-multiselect-filter';
     public $groupSelect = false;
 
     /**
