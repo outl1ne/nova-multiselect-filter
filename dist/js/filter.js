@@ -95,14 +95,11 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_HandlesFieldValue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/HandlesFieldValue */ "./resources/js/mixins/HandlesFieldValue.js");
+/* harmony import */ var _mixins_HandlesFilterValue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/HandlesFilterValue */ "./resources/js/mixins/HandlesFilterValue.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
 /* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_2__);
-//
-//
-//
 //
 //
 //
@@ -159,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_2__["Filterable"], laravel_nova__WEBPACK_IMPORTED_MODULE_2__["InteractsWithQueryString"], _mixins_HandlesFieldValue__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_2__["Filterable"], laravel_nova__WEBPACK_IMPORTED_MODULE_2__["InteractsWithQueryString"], _mixins_HandlesFilterValue__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: ['resourceName', 'resourceId', 'filterKey'],
   data: function data() {
     return {
@@ -170,21 +167,25 @@ __webpack_require__.r(__webpack_exports__);
       max: void 0
     };
   },
+  mounted: function mounted() {
+    console.log(this.filter);
+  },
   methods: {
     handleChange: function handleChange(value) {
       this.isTouched = true;
       this.selectedOptions = value;
     },
     handleClose: function handleClose() {
-      this.handleModal(false);
+      this.isDropdownOpen = false;
       this.emitChanges();
     },
-    handleModal: function handleModal(isOpen) {
-      this.isDropdownOpen = isOpen;
+    handleOpen: function handleOpen() {
+      this.isDropdownOpen = true;
     },
     handleRemove: function handleRemove() {
       var _this = this;
 
+      // Resolve issue where handleRemove is called before handleChange
       this.$nextTick(function () {
         if (!_this.isDropdownOpen) _this.emitChanges();
       });
@@ -214,7 +215,7 @@ __webpack_require__.r(__webpack_exports__);
       // If modified, return modified array
       if (this.isTouched) return this.selectedOptions; // Else return from $store
 
-      var valuesArray = this.getInitialFieldValuesArray();
+      var valuesArray = this.getInitialFilterValuesArray();
       return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
     },
     values: function values() {
@@ -27780,19 +27781,18 @@ var render = function() {
           "multiselect",
           {
             ref: "multiselect",
-            class: _vm.errorClasses,
             attrs: {
               "track-by": "value",
-              label: "name",
+              label: "label",
               "group-label": _vm.isOptionGroups ? "label" : void 0,
               "group-values": _vm.isOptionGroups ? "values" : void 0,
               "group-select": _vm.filter.groupSelect || false,
               value: _vm.selected,
-              options: this.filter.options,
+              options: _vm.computedOptions,
               placeholder: _vm.filter.placeholder || _vm.filter.name,
-              "close-on-select": _vm.filter.max === 1 || !_vm.isMultiselect,
+              "close-on-select": _vm.filter.max === 1,
               "clear-on-select": false,
-              multiple: _vm.isMultiselect,
+              multiple: true,
               max: _vm.max || _vm.filter.max || null,
               optionsLimit: _vm.filter.optionsLimit || 1000,
               limitText: function(count) {
@@ -27810,9 +27810,7 @@ var render = function() {
               input: _vm.handleChange,
               close: _vm.handleClose,
               remove: _vm.handleRemove,
-              open: function($event) {
-                return _vm.handleModal(true)
-              }
+              open: _vm.handleOpen
             }
           },
           [
@@ -28067,10 +28065,10 @@ Nova.booting(function (Vue, router, store) {
 
 /***/ }),
 
-/***/ "./resources/js/mixins/HandlesFieldValue.js":
-/*!**************************************************!*\
-  !*** ./resources/js/mixins/HandlesFieldValue.js ***!
-  \**************************************************/
+/***/ "./resources/js/mixins/HandlesFilterValue.js":
+/*!***************************************************!*\
+  !*** ./resources/js/mixins/HandlesFilterValue.js ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -28092,9 +28090,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.options = this.filter.options || [];
   },
   methods: {
-    getInitialFieldValuesArray: function getInitialFieldValuesArray() {
+    getInitialFilterValuesArray: function getInitialFilterValuesArray() {
       try {
-        if (!this.filter.currentValue) return void 0;
+        if (!this.value) return void 0;
         if (Array.isArray(this.filter.currentValue)) return this.filter.currentValue; // Attempt to parse the field value
 
         if (typeof this.filter.currentValue === 'string') {
@@ -28115,19 +28113,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getValueFromOptions: function getValueFromOptions(value) {
       var options = this.filter.options;
 
-      if (this.filter.dependsOn) {
-        var valueGroups = Object.values(this.filter.dependsOnOptions || {});
-        options = [];
-        valueGroups.forEach(function (values) {
-          return Object.keys(values).forEach(function (value) {
-            return options.push({
-              value: value,
-              label: values[value]
-            });
-          });
-        });
-      }
-
       if (this.isOptionGroups) {
         return this.filter.options.map(function (optGroup) {
           return optGroup.values.map(function (values) {
@@ -28146,9 +28131,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: {
-    isMultiselect: function isMultiselect() {
-      return !this.filter.singleSelect;
-    },
     isOptionGroups: function isOptionGroups() {
       return !!this.filter.options && !!this.filter.options.find(function (opt) {
         return opt.values && Array.isArray(opt.values);

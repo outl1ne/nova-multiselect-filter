@@ -45,5 +45,24 @@ export default {
         isOptionGroups() {
             return !!this.filter.options && !!this.filter.options.find(opt => opt.values && Array.isArray(opt.values));
         },
+
+        computedOptions() {
+            let options = this.options || [];
+
+            if (this.isOptionGroups) {
+                const allLabels = options.map(opt => opt.values.map(o => o.label)).flat();
+                options = options.map(option => {
+                    return {
+                        ...option,
+                        values: option.values.map(opt => {
+                            const isDuplicate = allLabels.filter(l => l === opt.label).length > 1;
+                            return {...opt, label: isDuplicate ? `${opt.label} (${option.label})` : opt.label};
+                        }),
+                    };
+                });
+            }
+
+            return options;
+        },
     },
 };

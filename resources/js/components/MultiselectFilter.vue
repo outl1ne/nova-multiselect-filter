@@ -11,13 +11,13 @@
           @remove="handleRemove"
           @open="handleOpen"
           track-by="value"
-          label="name"
+          label="label"
           :group-label="isOptionGroups ? 'label' : void 0"
           :group-values="isOptionGroups ? 'values' : void 0"
           :group-select="filter.groupSelect || false"
           ref="multiselect"
           :value="selected"
-          :options="this.filter.options"
+          :options="computedOptions"
           :placeholder="filter.placeholder || filter.name"
           :close-on-select="filter.max === 1"
           :clear-on-select="false"
@@ -43,8 +43,6 @@
           {{ __('novaMultiselect.noOptions') }}
         </template>
       </multiselect>
-
-
     </div>
   </div>
 </template>
@@ -67,6 +65,10 @@ export default {
     isTouched: false,
     max: void 0,
   }),
+
+  mounted() {
+      console.log(this.filter);
+  },
 
   methods: {
     handleChange(value) {
