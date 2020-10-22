@@ -9,7 +9,7 @@
           @input="handleChange"
           @close="handleClose"
           @remove="handleRemove"
-          @open="handleModal(true)"
+          @open="handleOpen"
           track-by="value"
           label="name"
           :group-label="isOptionGroups ? 'label' : void 0"
@@ -18,11 +18,10 @@
           ref="multiselect"
           :value="selected"
           :options="this.filter.options"
-          :class="errorClasses"
           :placeholder="filter.placeholder || filter.name"
-          :close-on-select="filter.max === 1 || !isMultiselect"
+          :close-on-select="filter.max === 1"
           :clear-on-select="false"
-          :multiple="isMultiselect"
+          :multiple="true"
           :max="max || filter.max || null"
           :optionsLimit="filter.optionsLimit || 1000"
           :limitText="count => __('novaMultiselect.limitText', { count: String(count || '') })"
@@ -52,15 +51,13 @@
 
 <script>
 
-import HandlesFieldValue from '../mixins/HandlesFieldValue';
+import HandlesFilterValue from '../mixins/HandlesFilterValue';
 import Multiselect from 'vue-multiselect';
 import {Filterable, InteractsWithQueryString} from 'laravel-nova';
 
 export default {
-
-
   components: {Multiselect},
-  mixins: [Filterable, InteractsWithQueryString, HandlesFieldValue],
+  mixins: [Filterable, InteractsWithQueryString, HandlesFilterValue],
   props: ['resourceName', 'resourceId', 'filterKey'],
 
   data: () => ({
@@ -78,15 +75,16 @@ export default {
     },
 
     handleClose() {
-      this.handleModal(false);
+      this.isDropdownOpen = false;
       this.emitChanges();
     },
 
-    handleModal(isOpen) {
-      this.isDropdownOpen = isOpen;
+    handleOpen() {
+      this.isDropdownOpen = true;
     },
 
     handleRemove() {
+      // Resolve issue where handleRemove is called before handleChange
       this.$nextTick(() => {
         if (!this.isDropdownOpen) this.emitChanges();
       });
@@ -125,7 +123,7 @@ export default {
       if (this.isTouched) return this.selectedOptions;
 
       // Else return from $store
-      const valuesArray = this.getInitialFieldValuesArray();
+      const valuesArray = this.getInitialFilterValuesArray();
       return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
     },
 
