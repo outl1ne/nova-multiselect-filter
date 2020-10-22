@@ -1,0 +1,145 @@
+<template>
+  <div>
+    <h3 class="text-sm uppercase tracking-wide text-80 bg-30 p-3">
+      {{ filter.name }}
+    </h3>
+
+    <div class="p-2 flex relative">
+      <multiselect
+          @input="handleChange"
+          @close="handleClose"
+          @remove="handleRemove"
+          @open="handleModal(true)"
+          track-by="value"
+          label="name"
+          :group-label="isOptionGroups ? 'label' : void 0"
+          :group-values="isOptionGroups ? 'values' : void 0"
+          :group-select="filter.groupSelect || false"
+          ref="multiselect"
+          :value="selected"
+          :options="this.filter.options"
+          :class="errorClasses"
+          :placeholder="filter.placeholder || filter.name"
+          :close-on-select="filter.max === 1 || !isMultiselect"
+          :clear-on-select="false"
+          :multiple="isMultiselect"
+          :max="max || filter.max || null"
+          :optionsLimit="filter.optionsLimit || 1000"
+          :limitText="count => __('novaMultiselect.limitText', { count: String(count || '') })"
+          :selectLabel="__('novaMultiselect.selectLabel')"
+          :selectGroupLabel="__('novaMultiselect.selectGroupLabel')"
+          :selectedLabel="__('novaMultiselect.selectedLabel')"
+          :deselectLabel="__('novaMultiselect.deselectLabel')"
+          :deselectGroupLabel="__('novaMultiselect.deselectGroupLabel')"
+      >
+        <template slot="maxElements">
+          {{ __('novaMultiselect.maxElements', {max: String(filter.max || '')}) }}
+        </template>
+
+        <template slot="noResult">
+          {{ __('novaMultiselect.noResult') }}
+        </template>
+
+        <template slot="noOptions">
+          {{ __('novaMultiselect.noOptions') }}
+        </template>
+      </multiselect>
+
+
+    </div>
+  </div>
+</template>
+
+<script>
+
+import HandlesFieldValue from '../mixins/HandlesFieldValue';
+import Multiselect from 'vue-multiselect';
+import {Filterable, InteractsWithQueryString} from 'laravel-nova';
+
+export default {
+
+
+  components: {Multiselect},
+  mixins: [Filterable, InteractsWithQueryString, HandlesFieldValue],
+  props: ['resourceName', 'resourceId', 'filterKey'],
+
+  data: () => ({
+    options: [],
+    isDropdownOpen: false,
+    selectedOptions: [],
+    isTouched: false,
+    max: void 0,
+  }),
+
+  methods: {
+    handleChange(value) {
+      this.isTouched = true;
+      this.selectedOptions = value;
+    },
+
+    handleClose() {
+      this.handleModal(false);
+      this.emitChanges();
+    },
+
+    handleModal(isOpen) {
+      this.isDropdownOpen = isOpen;
+    },
+
+    handleRemove() {
+      this.$nextTick(() => {
+        if (!this.isDropdownOpen) this.emitChanges();
+      });
+    },
+
+    emitChanges() {
+      //  Check if values have been changed
+      if (JSON.stringify(this.value) === JSON.stringify(this.values) || this.values == null) return;
+
+      // Update filter state
+      this.$store.commit(`${this.resourceName}/updateFilterState`, {
+        filterClass: this.filterKey,
+        value: this.values,
+      });
+
+      // Reset selected options and is touched
+      this.isTouched = false;
+      this.selectedOptions = [];
+      this.$emit('change');
+    },
+  },
+
+  computed: {
+    filter() {
+      return this.$store.getters[`${this.resourceName}/getFilter`](
+          this.filterKey
+      )
+    },
+
+    value() {
+      return this.filter.currentValue;
+    },
+
+    selected() {
+      // If modified, return modified array
+      if (this.isTouched) return this.selectedOptions;
+
+      // Else return from $store
+      const valuesArray = this.getInitialFieldValuesArray();
+      return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
+    },
+
+    values() {
+      if (!this.isTouched) return null;
+      const values = [];
+
+      // Return only values for query
+      this.selectedOptions.forEach(option => {
+        values.push(option.value);
+      });
+
+      return values.length ? values : '';
+    },
+  },
+}
+</script>
