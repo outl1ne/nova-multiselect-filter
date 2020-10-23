@@ -91,6 +91,7 @@ You can then edit the strings to your liking.
 ## Credits
 
 - [Kaspar Rosin](https://github.com/kasparrosin)
+- [shentao/vue-multiselect](https://github.com/shentao/vue-multiselect)
 - [All Contributors](https://github.com/optimistdigital/nova-multiselect-filter/graphs/contributors)
 
 This package was inspired by [klepak/nova-multiselect-filter](https://github.com/klepak/nova-multiselect-filter)
