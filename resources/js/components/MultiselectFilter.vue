@@ -72,7 +72,7 @@ export default {
     },
 
     handleClose() {
-      this.isDropdownOpen = false;ß
+      this.isDropdownOpen = false;
       this.emitChanges();
     },
 
