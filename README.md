@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/optimistdigital/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-multiselect-filter)
 [![Total Downloads](https://img.shields.io/packagist/dt/optimistdigital/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-multiselect-filter)
 
-This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova's filters.'
+This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova's filters.
 
 ## Requirements
 
