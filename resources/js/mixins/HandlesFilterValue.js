@@ -46,6 +46,10 @@ export default {
       return !!this.filter.options && !!this.filter.options.find(opt => opt.values && Array.isArray(opt.values));
     },
 
+    isMultiselect() {
+      return !this.filter.singleSelect;
+    },
+
     computedOptions() {
       let options = this.options || [];
 

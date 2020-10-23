@@ -11,7 +11,6 @@ use Laravel\Nova\Filters\Filter;
 abstract class MultiselectFilter extends Filter
 {
     public $component = 'nova-multiselect-filter';
-    public $groupSelect = false;
 
     /**
      * Apply the filter to the given query.
@@ -27,35 +26,87 @@ abstract class MultiselectFilter extends Filter
     }
 
     /**
-     * Get the filter's available options.
+     * Get the filter's options.
      *
      * @param Request $request
-     * @return array
+     * @return array|callable
      */
     public function options(Request $request)
     {
         return [];
     }
 
-    public function placeholder()
+    /**
+     * Sets the placeholder value displayed on the field.
+     *
+     * @param $placeholder
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     */
+    public function placeholder($placeholder)
     {
-        return null;
+        return $this->withMeta(['placeholder' => $placeholder]);
     }
 
-    public function groupSelect()
+    /**
+     * Sets the max number of options the user can select.
+     *
+     * @param $placeholder
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     */
+    public function max($max)
     {
-        return $this->groupSelect;
+        return $this->withMeta(['max' => $max]);
     }
 
-    public function getAvailableOptions()
+    /**
+     * Enables the field to be used as a single select.
+     *
+     * This forces the value saved to be a single value and not an array.
+     *
+     * @param bool $singleSelect
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     **/
+    public function singleSelect($singleSelect = true)
     {
-        $container = Container::getInstance();
+        return $this->withMeta(['singleSelect' => $singleSelect]);
+    }
 
-        if (is_callable($this->options($container->make(Request::class)))) {
-            $options = call_user_func($this->options($container->make(Request::class)));
-        }
+    /**
+     * Sets the maximum number of options displayed at once.
+     *
+     * @param $optionsLimit
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     */
+    public function optionsLimit($optionsLimit)
+    {
+        return $this->withMeta(['optionsLimit' => $optionsLimit]);
+    }
 
-        $options = collect($this->options($container->make(Request::class)) ?? []);
+    /**
+     * Enables vue-multiselect's group-select feature which allows the
+     * user to select the whole group at once.
+     *
+     * @param bool $groupSelect
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     */
+    public function groupSelect($groupSelect = true)
+    {
+        return $this->withMeta(['groupSelect' => $groupSelect]);
+    }
+
+    /**
+     * Formats the options available for select.
+     *
+     * @param array|callable
+     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     **/
+    public function getFormattedOptions($container, $request)
+    {
+        if (is_callable($this->options($container->make($request))))
+            $options = call_user_func($this->options($container->make($request)));
+
+        $options = collect($this->options($container->make($request)) ?? []);
+
         $isOptionGroup = $options->contains(function ($label, $value) {
             return is_array($label);
         });
@@ -83,16 +134,15 @@ abstract class MultiselectFilter extends Filter
      *
      * @return array
      */
-    public function jsonSerialize()
+    public
+    function jsonSerialize()
     {
         return array_merge([
             'class' => $this->key(),
             'name' => $this->name(),
             'component' => $this->component(),
-            'options' => $this->getAvailableOptions(),
+            'options' => $this->getFormattedOptions(Container::getInstance(), Request::class),
             'currentValue' => $this->default() ?? '',
-            'groupSelect' => $this->groupSelect(),
-            'placeholder' => $this->placeholder(),
         ], $this->meta());
     }
 }

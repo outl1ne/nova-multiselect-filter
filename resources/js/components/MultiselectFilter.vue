@@ -21,26 +21,26 @@
         :placeholder="filter.placeholder || filter.name"
         :close-on-select="filter.max === 1"
         :clear-on-select="false"
-        :multiple="true"
-        :max="max || filter.max || null"
+        :multiple="isMultiselect"
+        :max="filter.max || null"
         :optionsLimit="filter.optionsLimit || 1000"
-        :limitText="count => __('novaMultiselect.limitText', { count: String(count || '') })"
-        :selectLabel="__('novaMultiselect.selectLabel')"
-        :selectGroupLabel="__('novaMultiselect.selectGroupLabel')"
-        :selectedLabel="__('novaMultiselect.selectedLabel')"
-        :deselectLabel="__('novaMultiselect.deselectLabel')"
-        :deselectGroupLabel="__('novaMultiselect.deselectGroupLabel')"
+        :limitText="count => __('novaMultiselectFilter.limitText', { count: String(count || '') })"
+        :selectLabel="__('novaMultiselectFilter.selectLabel')"
+        :selectGroupLabel="__('novaMultiselectFilter.selectGroupLabel')"
+        :selectedLabel="__('novaMultiselectFilter.selectedLabel')"
+        :deselectLabel="__('novaMultiselectFilter.deselectLabel')"
+        :deselectGroupLabel="__('novaMultiselectFilter.deselectGroupLabel')"
       >
         <template slot="maxElements">
-          {{ __('novaMultiselect.maxElements', { max: String(filter.max || '') }) }}
+          {{ __('novaMultiselectFilter.maxElements', { max: String(filter.max || '') }) }}
         </template>
 
         <template slot="noResult">
-          {{ __('novaMultiselect.noResult') }}
+          {{ __('novaMultiselectFilter.noResult') }}
         </template>
 
         <template slot="noOptions">
-          {{ __('novaMultiselect.noOptions') }}
+          {{ __('novaMultiselectFilter.noOptions') }}
         </template>
       </multiselect>
     </div>
@@ -62,17 +62,17 @@ export default {
     isDropdownOpen: false,
     selectedOptions: [],
     isTouched: false,
-    max: void 0,
   }),
 
   methods: {
     handleChange(value) {
+      if (!this.isMultiselect) value = [value];
       this.isTouched = true;
       this.selectedOptions = value;
     },
 
     handleClose() {
-      this.isDropdownOpen = false;
+      this.isDropdownOpen = false;ß
       this.emitChanges();
     },
 
