@@ -1,0 +1,13 @@
+{
+  "novaMultiselectFilter.maxElements": "Max of :max selected.",
+  "novaMultiselectFilter.noResult": "No results found.",
+  "novaMultiselectFilter.noOptions": "List is empty.",
+  "novaMultiselectFilter.limitText": "and :count more",
+  "novaMultiselectFilter.selectLabel": "Press enter to select",
+  "novaMultiselectFilter.selectGroupLabel": "Press enter to select group",
+  "novaMultiselectFilter.selectedLabel": "Selected",
+  "novaMultiselectFilter.deselectLabel": "Press enter to remove",
+  "novaMultiselectFilter.deselectGroupLabel": "Press enter to deselect group",
+  "novaMultiselectFilter.placeholder": "Select option(s)",
+  "novaMultiselectFilter.nItemsSelected": ":count items selected"
+}

@@ -1,0 +1,13 @@
+{
+  "novaMultiselectFilter.maxElements": "Maksimaalne arv :max valitud.",
+  "novaMultiselectFilter.noResult": "Tulemusi ei leitud.",
+  "novaMultiselectFilter.noOptions": "Valikuid ei ole.",
+  "novaMultiselectFilter.limitText": "ja :count veel",
+  "novaMultiselectFilter.selectLabel": "Vajuta enter, et valida",
+  "novaMultiselectFilter.selectGroupLabel": "Vajuta enter, et valida grupp",
+  "novaMultiselectFilter.selectedLabel": "Valitud",
+  "novaMultiselectFilter.deselectLabel": "Vajuta enter, et eemaldada valik",
+  "novaMultiselectFilter.deselectGroupLabel": "Vajuta enter, et eemaldada grupi valik",
+  "novaMultiselectFilter.placeholder": "Tee valik",
+  "novaMultiselectFilter.nItemsSelected": ":count valitud"
+}
