@@ -11,9 +11,10 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 
 ## Features
 
-- Multiselect with search
-- Single select with search
+- Multi select
+- Single select
 - Group select
+- Search
 
 ## Screenshots
 TODO
