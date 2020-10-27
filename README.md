@@ -17,7 +17,10 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 - Search
 
 ## Screenshots
-TODO
+### Multiselect
+![Multiselect](docs/multiselect.gif)
+### Groupselect
+![Groupselect](docs/groupselect.gif)
 
 ## Installation
 
@@ -58,12 +61,15 @@ Option groups are supported. Their syntax is the same as [Laravel's option group
 In this example (from Nova docs), all values are grouped by the `group` key:
 
 ```php
-->options([
-    'MS' => ['label' => 'Small', 'group' => 'Men Sizes'],
-    'MM' => ['label' => 'Medium', 'group' => 'Men Sizes'],
-    'WS' => ['label' => 'Small', 'group' => 'Women Sizes'],
-    'WM' => ['label' => 'Medium', 'group' => 'Women Sizes'],
-])
+    public function options(Request $request)
+    {
+        return [
+          'cat' => ['label' => 'Cat', 'group' => 'Pets'],
+          'dog' => ['label' => 'Dog', 'group' => 'Pets'],
+          'eagle' => ['label' => 'Eagle', 'group' => 'Women Sizes'],
+          'parrot' => ['label' => 'Parrot', 'group' => 'Women Sizes'],
+        ]
+    }
 ```
 
 ## Options
