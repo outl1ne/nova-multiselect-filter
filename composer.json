@@ -1,9 +1,30 @@
 {
   "name": "optimistdigital/nova-multiselect-filter",
-  "description": "A Laravel Nova filter.",
+  "description": "Multiselect filter for Laravel Nova.",
   "keywords": [
     "laravel",
-    "nova"
+    "nova",
+    "filter",
+    "laravel-nova",
+    "multiselect",
+    "select"
+  ],
+  "authors": [
+    {
+      "name": "Kaspar Rosin",
+      "email": "kaspar.rosin@gmail.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Tarvo Reinpalu",
+      "email": "tarvoreinpalu@gmail.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Optimist Digital",
+      "email": "info@optimistdigital.com",
+      "role": "Maintainer"
+    }
   ],
   "license": "MIT",
   "require": {
