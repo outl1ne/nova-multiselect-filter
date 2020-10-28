@@ -3,11 +3,6 @@
   "novaMultiselectFilter.noResult": "Aucun résultat trouvé.",
   "novaMultiselectFilter.noOptions": "La liste est vide.",
   "novaMultiselectFilter.limitText": "et :count de plus",
-  "novaMultiselectFilter.selectLabel": "Appuyez sur Entrée pour sélectionner",
-  "novaMultiselectFilter.selectGroupLabel": "Appuyez sur Entrée pour sélectionner le groupe",
-  "novaMultiselectFilter.selectedLabel": "Sélectionné",
-  "novaMultiselectFilter.deselectLabel": "Appuyez sur Entrée pour supprimer",
-  "novaMultiselectFilter.deselectGroupLabel": "Appuyez sur Entrée pour désélectionner le groupe",
   "novaMultiselectFilter.placeholder": "Choisissez les options",
-  "novaMultiselectFilter.nItemsSelected": ":count items sélectionnés",
+  "novaMultiselectFilter.nItemsSelected": ":count items sélectionnés"
 }

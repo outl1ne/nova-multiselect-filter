@@ -25,11 +25,11 @@
         :max="filter.max || null"
         :optionsLimit="filter.optionsLimit || 1000"
         :limitText="count => __('novaMultiselectFilter.limitText', { count: String(count || '') })"
-        :selectLabel="__('novaMultiselectFilter.selectLabel')"
-        :selectGroupLabel="__('novaMultiselectFilter.selectGroupLabel')"
-        :selectedLabel="__('novaMultiselectFilter.selectedLabel')"
-        :deselectLabel="__('novaMultiselectFilter.deselectLabel')"
-        :deselectGroupLabel="__('novaMultiselectFilter.deselectGroupLabel')"
+        selectLabel=""
+        selectGroupLabel=""
+        selectedLabel=""
+        deselectLabel=""
+        deselectGroupLabel=""
       >
         <template slot="maxElements">
           {{ __('novaMultiselectFilter.maxElements', { max: String(filter.max || '') }) }}
