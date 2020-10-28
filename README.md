@@ -66,8 +66,8 @@ In this example (from Nova docs), all values are grouped by the `group` key:
         return [
           'cat' => ['label' => 'Cat', 'group' => 'Pets'],
           'dog' => ['label' => 'Dog', 'group' => 'Pets'],
-          'eagle' => ['label' => 'Eagle', 'group' => 'Women Sizes'],
-          'parrot' => ['label' => 'Parrot', 'group' => 'Women Sizes'],
+          'eagle' => ['label' => 'Eagle', 'group' => 'Birds'],
+          'parrot' => ['label' => 'Parrot', 'group' => 'Birds'],
         ]
     }
 ```
