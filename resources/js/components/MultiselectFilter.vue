@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nova-multiselect-filter">
     <h3 class="text-sm uppercase tracking-wide text-80 bg-30 p-3">
       {{ filter.name }}
     </h3>
@@ -24,6 +24,7 @@
         :multiple="isMultiselect"
         :max="filter.max || null"
         :optionsLimit="filter.optionsLimit || 1000"
+        :optionHeight="32"
         :limitText="count => __('novaMultiselectFilter.limitText', { count: String(count || '') })"
         selectLabel=""
         selectGroupLabel=""
@@ -136,3 +137,44 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+
+.nova-multiselect-filter {
+  .multiselect {
+    min-height: 32px;
+    height: 32px;
+
+    &.multiselect--active {
+      > .multiselect__select {
+        width: 32px;
+        height: 23px;
+      }
+    }
+
+    > .multiselect__select {
+      height: 32px;
+      width: 32px;
+    }
+
+    > .multiselect__tags {
+      border-color: var(\-\-60);
+      border-radius: 0.5rem;
+      box-shadow: none;
+
+      min-height: 32px;
+      height: 32px;
+      padding: 4px 40px 0 8px;
+    }
+
+    .multiselect__option {
+      min-height: 32px;
+      height: 32px;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 8px;
+    }
+  }
+}
+</style>
