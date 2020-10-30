@@ -144,18 +144,16 @@ export default {
 .nova-multiselect-filter {
   .multiselect {
     min-height: 32px;
-    height: 32px;
 
     &.multiselect--active {
       > .multiselect__select {
         width: 32px;
-        height: 23px;
       }
     }
 
     > .multiselect__select {
-      height: 32px;
       width: 32px;
+      height: 32px;
     }
 
     > .multiselect__tags {
@@ -164,8 +162,12 @@ export default {
       box-shadow: none;
 
       min-height: 32px;
-      height: 32px;
       padding: 4px 40px 0 8px;
+
+      .multiselect__tag,
+      .multiselect__placeholder {
+        margin-bottom: 0;
+      }
     }
 
     .multiselect__option {
