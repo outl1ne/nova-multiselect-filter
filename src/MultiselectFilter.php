@@ -103,9 +103,7 @@ abstract class MultiselectFilter extends Filter
      */
     public function getFormattedOptions($container, $request)
     {
-        if (is_callable($this->options($container->make($request))))
-            $options = call_user_func($this->options($container->make($request)));
-
+        $options = $this->options($container->make($request));
         $options = collect($options ?? []);
 
         $isOptionGroup = $options->contains(function ($label, $value) {
