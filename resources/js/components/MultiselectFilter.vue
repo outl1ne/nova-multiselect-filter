@@ -67,7 +67,7 @@ export default {
 
   methods: {
     handleChange(value) {
-      if (!this.isMultiselect) value = [value];
+      if (!this.isMultiselect) value = value ? [value] : [];
       this.isTouched = true;
       this.selectedOptions = value;
     },
