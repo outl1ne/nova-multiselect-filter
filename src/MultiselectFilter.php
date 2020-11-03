@@ -40,7 +40,7 @@ abstract class MultiselectFilter extends Filter
      * Sets the placeholder value displayed on the field.
      *
      * @param $placeholder
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     * @return MultiselectFilter
      */
     public function placeholder($placeholder)
     {
@@ -51,7 +51,7 @@ abstract class MultiselectFilter extends Filter
      * Sets the max number of options the user can select.
      *
      * @param $placeholder
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     * @return MultiselectFilter
      */
     public function max($max)
     {
@@ -64,7 +64,7 @@ abstract class MultiselectFilter extends Filter
      * This forces the value saved to be a single value and not an array.
      *
      * @param bool $singleSelect
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     * @return MultiselectFilter
      **/
     public function singleSelect($singleSelect = true)
     {
@@ -75,7 +75,7 @@ abstract class MultiselectFilter extends Filter
      * Sets the maximum number of options displayed at once.
      *
      * @param $optionsLimit
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     * @return MultiselectFilter
      */
     public function optionsLimit($optionsLimit)
     {
@@ -87,7 +87,7 @@ abstract class MultiselectFilter extends Filter
      * user to select the whole group at once.
      *
      * @param bool $groupSelect
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
+     * @return MultiselectFilter
      */
     public function groupSelect($groupSelect = true)
     {
@@ -97,15 +97,16 @@ abstract class MultiselectFilter extends Filter
     /**
      * Formats the options available for select.
      *
-     * @param array|callable
-     * @return \OptimistDigtal\NovaMultiselectFilter\MultiselectFilter
-     **/
+     * @param $container
+     * @param $request
+     * @return array
+     */
     public function getFormattedOptions($container, $request)
     {
         if (is_callable($this->options($container->make($request))))
             $options = call_user_func($this->options($container->make($request)));
 
-        $options = collect($this->options($container->make($request)) ?? []);
+        $options = collect($options ?? []);
 
         $isOptionGroup = $options->contains(function ($label, $value) {
             return is_array($label);
