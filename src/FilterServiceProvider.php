@@ -6,10 +6,11 @@ namespace OptimistDigtal\NovaMultiselectFilter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use OptimistDigital\NovaTranslationsLoader\NovaTranslationsLoader;
+use OptimistDigital\NovaTranslationsLoader\LoadsNovaTranslations;
 
 class FilterServiceProvider extends ServiceProvider
 {
+    use LoadsNovaTranslations;
     /**
      * Bootstrap any application services.
      *
@@ -21,6 +22,6 @@ class FilterServiceProvider extends ServiceProvider
             Nova::script('nova-multiselect-filter', __DIR__ . '/../dist/js/filter.js');
         });
 
-        NovaTranslationsLoader::loadTranslations(__DIR__ . '/../resources/lang', 'nova-multiselect-filter', true);
+        $this->loadTranslations(__DIR__ . '/../resources/lang', 'nova-multiselect-filter', true);
     }
 }
