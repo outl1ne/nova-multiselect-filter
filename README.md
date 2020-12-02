@@ -7,7 +7,8 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 
 ## Requirements
 
-- Laravel Nova ^2.0.11
+- `php: >=7.2`
+- `laravel/nova: ^3.0`
 
 ## Features
 
@@ -17,9 +18,13 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 - Search
 
 ## Screenshots
+
 ### Multiselect
+
 ![Multiselect](docs/multiselect.gif)
+
 ### Groupselect
+
 ![Groupselect](docs/groupselect.gif)
 
 ## Installation
@@ -76,14 +81,14 @@ In this example (from Nova docs), all values are grouped by the `group` key:
 
 Possible options you can pass to the filter using the option name as a function, ie `->placeholder('Choose peanuts')`.
 
-| Option                        | type            | default    | description                                                                                                                                                                  |
-| ----------------------------- | --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `options`                     | Array\|callable | []         | Options in an array as key-value pairs (`['id' => 'value']`).                                                                                                                |
-| `placeholder`                 | String          | Field name | The placeholder string for the input.                                                                                                                                        |
-| `max`                         | Number          | Infinite   | The maximum number of options a user can select.                                                                                                                             |
-| `groupSelect`                 | Boolean         | false      | For use with option groups - allows the user to select whole groups at once                                                                                                  |
-| `singleSelect`                | Boolean         | false      | Makes the field act as a single select which also means the saved value will not be an array.                                                                                |
-| `optionsLimit`                | Number          | 1000       | The maximum number of options displayed at once. Other options are still accessible through searching.                                                                       |
+| Option         | type            | default    | description                                                                                            |
+| -------------- | --------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
+| `options`      | Array\|callable | []         | Options in an array as key-value pairs (`['id' => 'value']`).                                          |
+| `placeholder`  | String          | Field name | The placeholder string for the input.                                                                  |
+| `max`          | Number          | Infinite   | The maximum number of options a user can select.                                                       |
+| `groupSelect`  | Boolean         | false      | For use with option groups - allows the user to select whole groups at once                            |
+| `singleSelect` | Boolean         | false      | Makes the field act as a single select which also means the saved value will not be an array.          |
+| `optionsLimit` | Number          | 1000       | The maximum number of options displayed at once. Other options are still accessible through searching. |
 
 ## Localization
 
