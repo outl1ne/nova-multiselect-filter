@@ -20,8 +20,8 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
+    "laravel-nova": "^1.7.0",
     "vue": "^2.6.12",
-    "vue-multiselect": "^2.1.6",
-    "laravel-nova": "^1.7.0"
+    "vue-multiselect": "^2.1.6"
   }
 }
