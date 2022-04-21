@@ -1,7 +1,7 @@
 <template>
   <div class="nova-multiselect-filter">
-    <h3 class="text-sm uppercase tracking-wide text-80 bg-30 p-3">
-      {{ filter.name }}
+    <h3 class="px-3 text-xs uppercase font-bold tracking-wide">
+      <span>{{ filter.name }}</span>
     </h3>
 
     <div class="p-2 flex relative">
@@ -50,8 +50,9 @@
 
 <script>
 import HandlesFilterValue from '../mixins/HandlesFilterValue';
-import Multiselect from 'vue-multiselect';
-import { Filterable, InteractsWithQueryString } from 'laravel-nova';
+import Multiselect from 'vue-multiselect/src/Multiselect';
+import Filterable from 'laravel-nova-filterable';
+import InteractsWithQueryString from 'laravel-nova-interacts-with-query-string';
 
 export default {
   components: { Multiselect },
@@ -142,6 +143,10 @@ export default {
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
 
 .nova-multiselect-filter {
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+
   .multiselect {
     min-height: 32px;
 
@@ -155,27 +160,194 @@ export default {
       width: 32px;
       height: 32px;
     }
+  }
 
-    > .multiselect__tags {
-      border-color: var(\-\-60);
-      border-radius: 0.5rem;
-      box-shadow: none;
+  .multiselect__tags {
+    --tw-border-opacity: 1;
+    border-width: 1px;
+    border-color: rgba(var(--colors-gray-300), var(--tw-border-opacity));
+    background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
+    color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
+    .dark & {
+      border-color: rgba(var(--colors-gray-700), var(--tw-border-opacity));
+      background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
+      color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    }
+  }
 
-      min-height: 32px;
-      padding: 4px 40px 0 8px;
+  .multiselect__placeholder {
+    color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+  }
 
-      .multiselect__tag,
-      .multiselect__placeholder {
-        margin-bottom: 0;
+  .multiselect__input {
+    border: none;
+    background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
+    color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
+
+    &::placeholder {
+      font-size: .875rem;
+      line-height: 1.25rem;
+      color: rgba(var(--colors-gray-400),var(--tw-text-opacity));
+    }
+
+    .dark & {
+      background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
+      color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    }
+  }
+
+  .multiselect__tag {
+    background-color: rgba(var(--colors-primary-500));
+    color: rgba(var(--colors-white), var(--tw-text-opacity));
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    font-weight: 700;
+
+    .dark & {
+      color: rgba(var(--colors-gray-800));
+    }
+
+    .multiselect__tag-icon {
+      border-radius: 0;
+
+      &::after {
+        color: rgba(var(--colors-white));
+
+        .dark & {
+          color: rgba(var(--colors-gray-800));
+        }
+      }
+
+      &:hover {
+        background-color: rgba(var(--colors-red-100));
+
+        .dark & {
+          background-color: rgba(var(--colors-red-400));
+        }
+
+        &::after {
+          color: rgba(var(--colors-red-600));
+
+          .dark & {
+            color: rgba(var(--colors-red-900));
+          }
+        }
+      }
+    }
+  }
+
+  .multiselect > .multiselect__clear {
+    &::before,
+    &::after {
+      width: 2px;
+      background: rgba(var(--colors-gray-400));
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        background: rgba(var(--colors-red-400));
+      }
+    }
+  }
+
+  .multiselect__single {
+    background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
+    color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
+    .dark & {
+      background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
+      color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    }
+  }
+
+  .multiselect__spinner {
+    background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
+    color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
+    .dark & {
+      background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
+      color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    }
+
+    &:before,
+    &:after {
+      border-color: rgba(var(--colors-primary-500)) transparent transparent;
+    }
+  }
+
+  .multiselect__content-wrapper {
+    border-color: rgba(var(--colors-gray-300), var(--tw-border-opacity));
+    .dark & {
+      border-color: rgba(var(--colors-gray-700), var(--tw-border-opacity));
+    }
+
+    .multiselect__content {
+      width: 240px;
+    }
+
+    li > span.multiselect__option {
+      background-color: #fff;
+      color: rgba(var(--colors-gray-400));
+      .dark & {
+        background-color: rgba(var(--colors-gray-900));
       }
     }
 
-    .multiselect__option {
-      min-height: 32px;
-      height: 32px;
-      font-size: 14px;
-      line-height: 16px;
-      padding: 8px;
+    .multiselect__element {
+      background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
+      color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
+      .dark & {
+        background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
+        color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+      }
+
+      .multiselect__option {
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: rgba(var(--colors-gray-600));
+        white-space: normal;
+
+        &:hover, &.multiselect__option--highlight {
+          font-weight: 700;
+          background-color: rgba(var(--colors-primary-400));
+          color: rgba(var(--colors-white));
+
+          .dark & {
+            color: rgba(var(--colors-gray-800));
+          }
+        }
+
+        .dark & {
+          color: rgba(var(--colors-gray-400));
+        }
+
+        &.multiselect__option--selected {
+          color: rgba(var(--colors-primary-400));
+          background-color: rgba(var(--colors-white));
+
+          .dark & {
+            background-color: rgba(var(--colors-gray-900));
+          }
+        }
+
+        &.multiselect__option--group {
+          color: rgba(var(--colors-gray-500))!important;
+          background-color: rgba(var(--colors-gray-100))!important;
+
+          .dark & {
+            color: rgba(var(--colors-gray-500))!important;
+            background-color: rgba(var(--colors-gray-900))!important;
+          }
+        }
+
+        &.multiselect__option--highlight {
+          &.multiselect__option--selected {
+            color: rgba(var(--colors-red-600));
+
+            .dark & {
+              color: rgba(var(--colors-red-400));
+            }
+          }
+        }
+      }
     }
   }
 }
