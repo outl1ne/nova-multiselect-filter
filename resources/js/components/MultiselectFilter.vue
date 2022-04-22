@@ -174,74 +174,41 @@ export default {
       color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
     }
   }
-
-  .multiselect__placeholder {
-    color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
-  }
-
   .multiselect__input {
     border: none;
     background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
     color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
-
-    &::placeholder {
-      font-size: .875rem;
-      line-height: 1.25rem;
-      color: rgba(var(--colors-gray-400),var(--tw-text-opacity));
-    }
-
     .dark & {
       background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
       color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
     }
   }
-
   .multiselect__tag {
     background-color: rgba(var(--colors-primary-500));
     color: rgba(var(--colors-white), var(--tw-text-opacity));
     --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     font-weight: 700;
-
-    .dark & {
-      color: rgba(var(--colors-gray-800));
-    }
-
+    /* .dark & {
+      color: rgba(var(--colors-gray-800), var(--tw-text-opacity));
+    } */
     .multiselect__tag-icon {
-      border-radius: 0;
-
       &::after {
         color: rgba(var(--colors-white));
-
-        .dark & {
-          color: rgba(var(--colors-gray-800));
-        }
       }
-
       &:hover {
-        background-color: rgba(var(--colors-red-100));
-
-        .dark & {
-          background-color: rgba(var(--colors-red-400));
-        }
-
+        background: rgba(var(--colors-primary-400));
         &::after {
-          color: rgba(var(--colors-red-600));
-
-          .dark & {
-            color: rgba(var(--colors-red-900));
-          }
+          color: rgba(var(--colors-red-500));
         }
       }
     }
   }
-
   .multiselect > .multiselect__clear {
     &::before,
     &::after {
       width: 2px;
       background: rgba(var(--colors-gray-400));
     }
-
     &:hover {
       &::before,
       &::after {
@@ -249,7 +216,6 @@ export default {
       }
     }
   }
-
   .multiselect__single {
     background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
     color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
@@ -258,7 +224,6 @@ export default {
       color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
     }
   }
-
   .multiselect__spinner {
     background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
     color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
@@ -266,13 +231,11 @@ export default {
       background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
       color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
     }
-
     &:before,
     &:after {
       border-color: rgba(var(--colors-primary-500)) transparent transparent;
     }
   }
-
   .multiselect__content-wrapper {
     border-color: rgba(var(--colors-gray-300), var(--tw-border-opacity));
     .dark & {
@@ -290,7 +253,6 @@ export default {
         background-color: rgba(var(--colors-gray-900));
       }
     }
-
     .multiselect__element {
       background-color: rgba(var(--colors-white), var(--tw-bg-opacity));
       color: rgba(var(--colors-gray-600), var(--tw-text-opacity));
@@ -298,31 +260,14 @@ export default {
         background-color: rgba(var(--colors-gray-900), var(--tw-bg-opacity));
         color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
       }
-
       .multiselect__option {
-        font-size: .875rem;
-        line-height: 1.25rem;
         color: rgba(var(--colors-gray-600));
-        white-space: normal;
-
-        &:hover, &.multiselect__option--highlight {
-          font-weight: 700;
-          background-color: rgba(var(--colors-primary-400));
-          color: rgba(var(--colors-white));
-
-          .dark & {
-            color: rgba(var(--colors-gray-800));
-          }
-        }
-
         .dark & {
           color: rgba(var(--colors-gray-400));
         }
-
         &.multiselect__option--selected {
           color: rgba(var(--colors-primary-400));
           background-color: rgba(var(--colors-white));
-
           .dark & {
             background-color: rgba(var(--colors-gray-900));
           }
@@ -339,11 +284,16 @@ export default {
         }
 
         &.multiselect__option--highlight {
+          background-color: rgba(var(--colors-primary-500));
+          color: rgba(var(--colors-white));
+          &::after {
+            background-color: rgba(var(--colors-primary-500));
+            font-weight: 700;
+          }
           &.multiselect__option--selected {
-            color: rgba(var(--colors-red-600));
-
+            background-color: rgba(var(--colors-red-500));
             .dark & {
-              color: rgba(var(--colors-red-400));
+              background-color: rgba(var(--colors-red-500));
             }
           }
         }
