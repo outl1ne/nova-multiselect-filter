@@ -274,12 +274,12 @@ export default {
         }
 
         &.multiselect__option--group {
-          color: rgba(var(--colors-gray-500))!important;
-          background-color: rgba(var(--colors-gray-100))!important;
+          color: rgba(var(--colors-gray-500)) !important;
+          background-color: rgba(var(--colors-gray-100)) !important;
 
           .dark & {
-            color: rgba(var(--colors-gray-500))!important;
-            background-color: rgba(var(--colors-gray-900))!important;
+            color: rgba(var(--colors-gray-500)) !important;
+            background-color: rgba(var(--colors-gray-900)) !important;
           }
         }
 
