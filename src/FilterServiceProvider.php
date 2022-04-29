@@ -1,12 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
+namespace Outl1ne\NovaMultiselectFilter;
 
-namespace OptimistDigtal\NovaMultiselectFilter;
-
-use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use OptimistDigital\NovaTranslationsLoader\LoadsNovaTranslations;
+use Laravel\Nova\Events\ServingNova;
+use Illuminate\Support\ServiceProvider;
+use Outl1ne\NovaTranslationsLoader\LoadsNovaTranslations;
 
 class FilterServiceProvider extends ServiceProvider
 {

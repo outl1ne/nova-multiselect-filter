@@ -1,7 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
-
-namespace OptimistDigtal\NovaMultiselectFilter;
+namespace Outl1ne\NovaMultiselectFilter;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;

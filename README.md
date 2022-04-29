@@ -1,7 +1,7 @@
 # Nova Multiselect Filter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/optimistdigital/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-multiselect-filter)
-[![Total Downloads](https://img.shields.io/packagist/dt/optimistdigital/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-multiselect-filter)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/outl1ne/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-multiselect-filter)
+[![Total Downloads](https://img.shields.io/packagist/dt/outl1ne/nova-multiselect-filter.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-multiselect-filter)
 
 This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova's filters.
 
@@ -32,7 +32,7 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 Install the package in a Laravel Nova project via Composer:
 
 ```bash
-composer require optimistdigital/nova-multiselect-filter
+composer require outl1ne/nova-multiselect-filter
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ composer require optimistdigital/nova-multiselect-filter
 The filter can be used when switching `Filter` class with `MultiselectFilter`.
 
 ```php
-use OptimistDigtal\NovaMultiselectFilter\MultiselectFilter;
+use Outl1ne\NovaMultiselectFilter\MultiselectFilter;
 
 class BooksByAuthorFilter extends MultiselectFilter
 {
@@ -95,7 +95,7 @@ Possible options you can pass to the filter using the option name as a function,
 The translations file can be published by using the following publish command:
 
 ```bash
-php artisan vendor:publish --provider="OptimistDigital\NovaMultiselectFilter\FieldServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Outl1ne\NovaMultiselectFilter\FieldServiceProvider" --tag="translations"
 ```
 
 You can then edit the strings to your liking.
@@ -105,7 +105,7 @@ You can then edit the strings to your liking.
 - [Kaspar Rosin](https://github.com/kasparrosin)
 - [Tarvo Reinpalu](https://github.com/Tarpsvo)
 - [shentao/vue-multiselect](https://github.com/shentao/vue-multiselect)
-- [All Contributors](https://github.com/optimistdigital/nova-multiselect-filter/graphs/contributors)
+- [All Contributors](https://github.com/outl1ne/nova-multiselect-filter/graphs/contributors)
 
 This package was inspired by [klepak/nova-multiselect-filter](https://github.com/klepak/nova-multiselect-filter)
 
