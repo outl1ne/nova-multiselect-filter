@@ -7,6 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 abstract class MultiselectFilter extends Filter
 {
@@ -20,7 +21,7 @@ abstract class MultiselectFilter extends Filter
      * @param $value
      * @return Builder
      */
-    public function apply(Request $request, $query, $value)
+    public function apply(NovaRequest $request, $query, $value)
     {
         return $query;
     }
@@ -31,7 +32,7 @@ abstract class MultiselectFilter extends Filter
      * @param Request $request
      * @return array|callable
      */
-    public function options(Request $request)
+    public function options(NovaRequest $request)
     {
         return [];
     }
@@ -133,14 +134,13 @@ abstract class MultiselectFilter extends Filter
      *
      * @return array
      */
-    public
-    function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge([
             'class' => $this->key(),
             'name' => $this->name(),
             'component' => $this->component(),
-            'options' => $this->getFormattedOptions(Container::getInstance(), Request::class),
+            'options' => $this->getFormattedOptions(Container::getInstance(), NovaRequest::class),
             'currentValue' => $this->default() ?? '',
         ], $this->meta());
     }
