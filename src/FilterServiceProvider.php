@@ -18,7 +18,8 @@ class FilterServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Nova::serving(function (ServingNova $event): void {
-            Nova::script('nova-multiselect-filter', __DIR__ . '/../dist/js/filter.js');
+            Nova::script('nova-multiselect-filter', __DIR__ . '/../dist/js/entry.js');
+            Nova::style('nova-multiselect-filter', __DIR__ . '/../dist/css/entry.css');
         });
 
         $this->loadTranslations(__DIR__ . '/../resources/lang', 'nova-multiselect-filter', true);
