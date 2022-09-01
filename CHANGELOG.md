@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.2] - 01-09-2022
+
+### Changed
+
+- Fixed occasional issue with an empty value appearing as a selected option when searching for items
+
 ## [4.0.1] - 08-08-2022
 
 ### Changed
