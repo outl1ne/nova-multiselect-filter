@@ -68,6 +68,15 @@ export default {
 
   methods: {
     handleChange(value) {
+      // For some reason, after upgrading to Vue 3, this callback
+      // Sometimes receives an InputEvent as an argument - my only
+      // fix is to filter out the InputEvent and only accept arrays
+      if (this.isMultiselect) {
+        if (!Array.isArray(value)) return;
+      } else {
+        if (value && !value.value) return;
+      }
+
       if (!this.isMultiselect) value = value ? [value] : [];
       this.isTouched = true;
       this.selectedOptions = value;
