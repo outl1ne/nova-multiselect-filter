@@ -1,10 +1,10 @@
 <template>
-  <div class="outl1ne-multiselect-filter">
-    <h3 class="px-3 text-xs uppercase font-bold tracking-wide">
+  <div class="outl1ne-multiselect-filter o1-pt-2 o1-pb-3 o1-relative">
+    <h3 class="o1-px-3 o1-text-xs o1-uppercase o1-font-bold o1-tracking-wide">
       <span>{{ filter.name }}</span>
     </h3>
 
-    <div class="p-2 flex relative">
+    <div class="o1-pt-2 o1-px-2 o1-flex o1-relative">
       <multiselect
         @input="handleChange"
         @close="handleClose"
@@ -66,6 +66,20 @@ export default {
     isTouched: false,
   }),
 
+  mounted() {
+    window.addEventListener('scroll', this.repositionDropdown);
+
+    const fc = this.findFiltersContainer();
+    if (fc) fc.addEventListener('scroll', this.repositionDropdown);
+  },
+
+  unmounted() {
+    window.removeEventListener('scroll', this.repositionDropdown);
+
+    const fc = this.findFiltersContainer();
+    if (fc) fc.removeEventListener('scroll', this.repositionDropdown);
+  },
+
   methods: {
     handleChange(value) {
       // For some reason, after upgrading to Vue 3, this callback
@@ -80,6 +94,8 @@ export default {
       if (!this.isMultiselect) value = value ? [value] : [];
       this.isTouched = true;
       this.selectedOptions = value;
+
+      this.$nextTick(this.repositionDropdown);
     },
 
     handleClose() {
@@ -89,6 +105,7 @@ export default {
 
     handleOpen() {
       this.isDropdownOpen = true;
+      this.$nextTick(this.repositionDropdown);
     },
 
     handleRemove() {
@@ -112,6 +129,51 @@ export default {
       this.isTouched = false;
       this.selectedOptions = [];
       this.$emit('change');
+    },
+
+    repositionDropdown(onOpen = false) {
+      const ms = this.$refs.multiselect;
+      if (!ms) return;
+
+      const el = ms.$el;
+      const parentContainer = this.findFiltersContainer();
+      if (!parentContainer) return;
+
+      const handlePositioning = () => {
+        if (onOpen) ms.$refs.list.scrollTop = 0;
+
+        let parentScrollTop = parentContainer.scrollTop;
+
+        console.info({
+          elOffsetTop: el.offsetTop,
+        });
+
+        const top =
+          el.parentElement.parentElement.offsetTop +
+          el.clientHeight +
+          el.parentElement.offsetTop -
+          parentScrollTop +
+          el.offsetTop;
+
+        ms.$refs.list.style.position = 'fixed';
+        ms.$refs.list.style.width = `${el.clientWidth}px`;
+        ms.$refs.list.style.top = `${top}px`;
+        ms.$refs.list.style['border-radius'] = '0 0 5px 5px';
+      };
+
+      if (onOpen) this.$nextTick(handlePositioning);
+      else handlePositioning();
+    },
+
+    findFiltersContainer() {
+      const ms = this.$refs.multiselect;
+      if (!ms) return;
+
+      let el = ms.$el;
+      while (el) {
+        if (el.classList.contains('scroll-wrap')) return el;
+        el = el.parentElement;
+      }
     },
   },
 
@@ -290,6 +352,11 @@ $red500: #ef4444;
   .multiselect__content-wrapper {
     border-color: $slate300;
     transition: none;
+
+    .multiselect__content {
+      overflow: hidden;
+      width: 100%;
+    }
 
     .dark & {
       border-color: $slate700;
