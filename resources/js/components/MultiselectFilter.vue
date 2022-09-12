@@ -144,10 +144,6 @@ export default {
 
         let parentScrollTop = parentContainer.scrollTop;
 
-        console.info({
-          elOffsetTop: el.offsetTop,
-        });
-
         const top =
           el.parentElement.parentElement.offsetTop +
           el.clientHeight +
