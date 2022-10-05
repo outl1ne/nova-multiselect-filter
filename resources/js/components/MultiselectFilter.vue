@@ -198,7 +198,7 @@ export default {
         return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
       }
 
-      return this.getValueFromOptions(valuesArray[0]);
+      return valuesArray && valuesArray.length ? this.getValueFromOptions(valuesArray[0]) : void 0;
     },
 
     values() {
