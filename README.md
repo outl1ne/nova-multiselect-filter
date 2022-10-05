@@ -87,7 +87,7 @@ Possible options you can pass to the filter using the option name as a function,
 | `placeholder`  | String          | Field name | The placeholder string for the input.                                                                  |
 | `max`          | Number          | Infinite   | The maximum number of options a user can select.                                                       |
 | `groupSelect`  | Boolean         | false      | For use with option groups - allows the user to select whole groups at once                            |
-| `singleSelect` | Boolean         | false      | Makes the field act as a single select which also means the saved value will not be an array.          |
+| `singleSelect` | Boolean         | false      | Makes the field act as a single select. The returned value will be an array with one element.          |
 | `optionsLimit` | Number          | 1000       | The maximum number of options displayed at once. Other options are still accessible through searching. |
 
 ## Localization
