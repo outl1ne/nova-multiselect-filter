@@ -19,7 +19,7 @@
         :value="selected"
         :options="computedOptions"
         :placeholder="filter.placeholder || filter.name"
-        :close-on-select="filter.max === 1"
+        :close-on-select="filter.max === 1 || !isMultiselect"
         :clear-on-select="false"
         :multiple="isMultiselect"
         :max="filter.max || null"
@@ -42,6 +42,10 @@
 
         <template #noOptions>
           {{ __('novaMultiselectFilter.noOptions') }}
+        </template>
+
+        <template #singleLabel="{ option }">
+          <span>{{ option ? option.label : '' }}</span>
         </template>
       </multiselect>
     </div>
@@ -91,9 +95,8 @@ export default {
         if (value && !value.value) return;
       }
 
-      if (!this.isMultiselect) value = value ? [value] : [];
       this.isTouched = true;
-      this.selectedOptions = value;
+      this.selectedOptions = this.isMultiselect ? value : [value];
 
       this.$nextTick(this.repositionDropdown);
     },
@@ -184,11 +187,18 @@ export default {
 
     selected() {
       // If modified, return modified array
-      if (this.isTouched) return this.selectedOptions;
+      if (this.isTouched) {
+        return this.isMultiselect ? this.selectedOptions : this.selectedOptions[0];
+      }
 
       // Else return from $store
       const valuesArray = this.getInitialFilterValuesArray();
-      return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
+
+      if (this.isMultiselect) {
+        return valuesArray && valuesArray.length ? valuesArray.map(this.getValueFromOptions).filter(Boolean) : [];
+      }
+
+      return this.getValueFromOptions(valuesArray[0]);
     },
 
     values() {
