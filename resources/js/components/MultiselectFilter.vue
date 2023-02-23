@@ -66,6 +66,7 @@ export default {
   data: () => ({
     options: [],
     isDropdownOpen: false,
+    hasRemoved: false,
     selectedOptions: [],
     isTouched: false,
   }),
@@ -99,6 +100,11 @@ export default {
       this.selectedOptions = this.isMultiselect ? value : [value];
 
       this.$nextTick(this.repositionDropdown);
+
+      if (this.hasRemoved) {
+        this.hasRemoved = false;
+        this.emitChanges();
+      }
     },
 
     handleClose() {
@@ -112,10 +118,7 @@ export default {
     },
 
     handleRemove() {
-      // Resolve issue where handleRemove is called before handleChange
-      this.$nextTick(() => {
-        if (!this.isDropdownOpen) this.emitChanges();
-      });
+      this.hasRemoved = true;
     },
 
     emitChanges() {
