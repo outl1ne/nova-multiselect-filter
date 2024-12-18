@@ -29,8 +29,11 @@
   "license": "MIT",
   "require": {
     "php": ">=8.0",
-    "laravel/nova": "^4.0",
+    "laravel/nova": "^5.0",
     "outl1ne/nova-translations-loader": "^5.0.0"
+  },
+  "require-dev": {
+    "laravel/nova-devtool": "^1.0"
   },
   "autoload": {
     "psr-4": {
