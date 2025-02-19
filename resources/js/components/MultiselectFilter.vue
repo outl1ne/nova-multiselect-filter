@@ -6,9 +6,9 @@
 
     <div class="o1-pt-2 o1-px-2 o1-flex o1-relative">
       <multiselect
+        @remove="handleRemove"
         @input="handleChange"
         @close="handleClose"
-        @remove="handleRemove"
         @open="handleOpen"
         track-by="value"
         label="label"
@@ -66,7 +66,6 @@ export default {
   data: () => ({
     options: [],
     isDropdownOpen: false,
-    hasRemoved: false,
     selectedOptions: [],
     isTouched: false,
   }),
@@ -101,10 +100,7 @@ export default {
 
       this.$nextTick(this.repositionDropdown);
 
-      if (this.hasRemoved) {
-        this.hasRemoved = false;
-        this.emitChanges();
-      }
+      this.emitChanges();
     },
 
     handleClose() {
@@ -115,10 +111,6 @@ export default {
     handleOpen() {
       this.isDropdownOpen = true;
       this.$nextTick(this.repositionDropdown);
-    },
-
-    handleRemove() {
-      this.hasRemoved = true;
     },
 
     emitChanges() {
