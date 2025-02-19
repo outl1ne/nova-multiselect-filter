@@ -7,8 +7,8 @@ This [Laravel Nova](https://nova.laravel.com) package adds a multiselect to Nova
 
 ## Requirements
 
-- `php: >=7.2`
-- `laravel/nova: ^4.0`
+- `php: >=8.0`
+- `laravel/nova: ^5.0`
 
 ## Features
 
