@@ -1,61 +1,82 @@
 {
-  "name": "outl1ne/nova-multiselect-filter",
-  "description": "Multiselect filter for Laravel Nova.",
-  "keywords": [
-    "laravel",
-    "nova",
-    "filter",
-    "laravel-nova",
-    "multiselect",
-    "select"
-  ],
-  "authors": [
-    {
-      "name": "Kaspar Rosin",
-      "email": "kaspar.rosin@gmail.com",
-      "role": "Developer"
+    "name": "outl1ne/nova-multiselect-filter",
+    "description": "Multiselect filter for Laravel Nova.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "filter",
+        "laravel-nova",
+        "multiselect",
+        "select"
+    ],
+    "authors": [
+        {
+            "name": "Kaspar Rosin",
+            "email": "kaspar.rosin@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Tarvo Reinpalu",
+            "email": "tarvoreinpalu@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Outl1ne",
+            "email": "info@optimistdigital.com",
+            "role": "Maintainer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0",
+        "laravel/nova": "^5.0",
+        "outl1ne/nova-translations-loader": "^5.0.0"
     },
-    {
-      "name": "Tarvo Reinpalu",
-      "email": "tarvoreinpalu@gmail.com",
-      "role": "Developer"
+    "require-dev": {
+        "laravel/nova-devtool": "^1.8"
     },
-    {
-      "name": "Outl1ne",
-      "email": "info@optimistdigital.com",
-      "role": "Maintainer"
+    "autoload": {
+        "psr-4": {
+            "Outl1ne\\NovaMultiselectFilter\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Outl1ne\\NovaMultiselectFilter\\FilterServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ]
     }
-  ],
-  "license": "MIT",
-  "require": {
-    "php": ">=8.0",
-    "laravel/nova": "^5.0",
-    "outl1ne/nova-translations-loader": "^5.0.0"
-  },
-  "require-dev": {
-    "laravel/nova-devtool": "^1.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Outl1ne\\NovaMultiselectFilter\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Outl1ne\\NovaMultiselectFilter\\FilterServiceProvider"
-      ]
-    }
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://nova.laravel.com"
-    }
-  ]
 }
