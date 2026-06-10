@@ -25,5 +25,8 @@
   "dependencies": {
     "vue": "^3.5.0",
     "vue-multiselect": "^2.1.6"
+  },
+  "overrides": {
+    "webpack": "~5.74.0"
   }
 }
