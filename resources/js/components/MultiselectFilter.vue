@@ -213,16 +213,6 @@ export default {
 
 <style lang="scss">
 $white: #fff;
-$slate50: #f8fafc;
-$slate100: #f1f5f9;
-$slate200: #e2e8f0;
-$slate300: #cbd5e1;
-$slate400: #94a3b8;
-$slate500: #64748b;
-$slate600: #475569;
-$slate700: #334155;
-$slate800: #1e293b;
-$slate900: #0f172a;
 
 $red400: #f87171;
 $red500: #ef4444;
@@ -239,9 +229,9 @@ $red500: #ef4444;
     --tw-border-opacity: 1;
     border-width: 1px;
 
-    border-color: $slate300;
+    border-color: rgba(var(--colors-gray-300));
     background-color: $white;
-    color: $slate600;
+    color: rgba(var(--colors-gray-600));
 
     padding: 6px 56px 0 6px;
     min-height: 36px;
@@ -250,9 +240,9 @@ $red500: #ef4444;
     overflow: hidden;
 
     .dark & {
-      border-color: $slate700;
-      background-color: $slate900;
-      color: $slate400;
+      border-color: rgba(var(--colors-gray-700));
+      background-color: rgba(var(--colors-gray-900));
+      color: rgba(var(--colors-gray-400));
     }
   }
 
@@ -268,8 +258,8 @@ $red500: #ef4444;
     padding-left: 8px;
 
     .dark & {
-      background-color: $slate900;
-      color: $slate400;
+      background-color: rgba(var(--colors-gray-900));
+      color: rgba(var(--colors-gray-400));
     }
   }
 
@@ -317,7 +307,7 @@ $red500: #ef4444;
 
   .multiselect__single {
     background-color: $white;
-    color: $slate600;
+    color: rgba(var(--colors-gray-600));
 
     font-size: 14px;
     line-height: 18px;
@@ -327,21 +317,21 @@ $red500: #ef4444;
     padding-top: 2px;
     padding-left: 8px;
 
-    color: $slate600;
+    color: rgba(var(--colors-gray-600));
 
     .dark & {
       color: rgba(var(--colors-gray-400));
-      background-color: $slate900;
+      background-color: rgba(var(--colors-gray-900));
     }
   }
 
   .multiselect__spinner {
     background-color: $white;
-    color: $slate600;
+    color: rgba(var(--colors-gray-600));
 
     .dark & {
-      background-color: $slate900;
-      color: $slate400;
+      background-color: rgba(var(--colors-gray-900));
+      color: rgba(var(--colors-gray-400));
     }
 
     &:before,
@@ -351,7 +341,7 @@ $red500: #ef4444;
   }
 
   .multiselect__content-wrapper {
-    border-color: $slate300;
+    border-color: rgba(var(--colors-gray-300));
     transition: none;
 
     .multiselect__content {
@@ -360,33 +350,33 @@ $red500: #ef4444;
     }
 
     .dark & {
-      border-color: $slate700;
+      border-color: rgba(var(--colors-gray-700));
     }
 
     li > span.multiselect__option {
       background-color: #fff;
-      color: $slate400;
+      color: rgba(var(--colors-gray-400));
 
       min-height: 32px;
       font-size: 14px;
       line-height: 14px;
 
       .dark & {
-        background-color: $slate900;
+        background-color: rgba(var(--colors-gray-900));
       }
     }
 
     .multiselect__element {
       background-color: $white;
-      color: $slate600;
+      color: rgba(var(--colors-gray-600));
 
       .dark & {
-        background-color: $slate900;
-        color: $slate400;
+        background-color: rgba(var(--colors-gray-900));
+        color: rgba(var(--colors-gray-400));
       }
 
       .multiselect__option {
-        color: $slate600;
+        color: rgba(var(--colors-gray-600));
 
         padding: 8px 12px;
         min-height: 32px;
@@ -394,11 +384,11 @@ $red500: #ef4444;
         line-height: 14px;
 
         .dark & {
-          color: $slate400;
+          color: rgba(var(--colors-gray-400));
 
           &--disabled {
-            color: $slate500 !important;
-            background-color: $slate800 !important;
+            color: rgba(var(--colors-gray-500)) !important;
+            background-color: rgba(var(--colors-gray-800)) !important;
             opacity: 0.9;
           }
         }
@@ -408,7 +398,7 @@ $red500: #ef4444;
           background-color: $white;
 
           .dark & {
-            background-color: $slate900;
+            background-color: rgba(var(--colors-gray-900));
           }
         }
 
