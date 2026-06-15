@@ -15,12 +15,15 @@ abstract class MultiselectFilter extends Filter
     /**
      * Apply the filter to the given query.
      *
+     * Note: the $query parameter is intentionally left untyped so this signature
+     * stays compatible with both Nova 4 (untyped $query) and Nova 5 (typed Builder).
+     *
      * @param Request $request
      * @param Builder $query
      * @param $value
      * @return Builder
      */
-    public function apply(NovaRequest $request, Builder $query, mixed $value): Builder
+    public function apply(NovaRequest $request, $query, mixed $value): Builder
     {
         return $query;
     }

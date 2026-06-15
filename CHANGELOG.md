@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Restored Laravel Nova 4 support alongside Nova 5 (`laravel/nova: ^4.0 || ^5.0`), covering Laravel 10 through 13
+- Relaxed the `apply()` query parameter type hint so the abstract filter is LSP-compatible with both Nova 4 (untyped query) and Nova 5 (typed `Builder`)
+- Widened `outl1ne/nova-translations-loader` constraint to `^4.0 || ^5.0`
+
 ## [5.0.1] - 19-02-2025
 
 ### Changed
