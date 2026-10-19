@@ -25,6 +25,7 @@
         :max="filter.max || null"
         :optionsLimit="filter.optionsLimit || 1000"
         :optionHeight="32"
+        :maxHeight="filter.maxHeight || 280"
         :limitText="count => __('novaMultiselectFilter.limitText', { count: String(count || '') })"
         selectLabel=""
         selectGroupLabel=""
@@ -152,6 +153,7 @@ export default {
         ms.$refs.list.style.position = 'fixed';
         ms.$refs.list.style.width = `${el.clientWidth}px`;
         ms.$refs.list.style.top = `${top}px`;
+        ms.$refs.list.style.bottom = 'auto';
         ms.$refs.list.style['border-radius'] = '0 0 5px 5px';
       };
 
@@ -343,8 +345,6 @@ $red500: #ef4444;
   .multiselect__content-wrapper {
     border-color: rgba(var(--colors-gray-300));
     transition: none;
-    min-height: fit-content;
-    max-height: 280px;
 
     .multiselect__content {
       overflow: hidden;

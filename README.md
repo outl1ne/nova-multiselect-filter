@@ -89,6 +89,7 @@ Possible options you can pass to the filter using the option name as a function,
 | `groupSelect`  | Boolean         | false      | For use with option groups - allows the user to select whole groups at once                            |
 | `singleSelect` | Boolean         | false      | Makes the field act as a single select. The returned value will be an array with one element.          |
 | `optionsLimit` | Number          | 1000       | The maximum number of options displayed at once. Other options are still accessible through searching. |
+| `maxHeight`    | Number          | 280        | The maximum height of the options dropdown in pixels. Options beyond it are scrollable.                |
 
 ## Localization
 

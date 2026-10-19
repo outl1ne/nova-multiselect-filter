@@ -83,6 +83,17 @@ abstract class MultiselectFilter extends Filter
     }
 
     /**
+     * Sets the maximum height of the options dropdown in pixels.
+     *
+     * @param $maxHeight
+     * @return MultiselectFilter
+     */
+    public function maxHeight($maxHeight)
+    {
+        return $this->withMeta(['maxHeight' => $maxHeight]);
+    }
+
+    /**
      * Enables vue-multiselect's group-select feature which allows the
      * user to select the whole group at once.
      *
