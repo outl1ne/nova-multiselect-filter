@@ -77,6 +77,30 @@ In this example (from Nova docs), all values are grouped by the `group` key:
     }
 ```
 
+### Dependent filters
+
+A filter can show only the options that match the values selected in another filter. Give each option the matching value under a key of your choice, and pass the parent filter and that key to `dependsOn`. Options without the key are always shown. When the parent filter changes, selected options that no longer match are deselected.
+
+```php
+class BooksByAuthorFilter extends MultiselectFilter
+{
+    public function __construct()
+    {
+        $this->dependsOn(BooksByCountryFilter::class, 'country');
+    }
+
+    public function options(Request $request)
+    {
+        return [
+          1 => ['label' => 'Tolkien', 'group' => 'Fantasy', 'country' => 'gb'],
+          2 => ['label' => 'Tammsaare', 'group' => 'Classics', 'country' => 'ee'],
+        ];
+    }
+}
+```
+
+When no value is selected in the parent filter, or the parent filter is not on the page, all options are shown. The options must use the array syntax shown above.
+
 ## Options
 
 Possible options you can pass to the filter using the option name as a function, ie `->placeholder('Choose peanuts')`.
@@ -90,6 +114,7 @@ Possible options you can pass to the filter using the option name as a function,
 | `singleSelect` | Boolean         | false      | Makes the field act as a single select. The returned value will be an array with one element.          |
 | `optionsLimit` | Number          | 1000       | The maximum number of options displayed at once. Other options are still accessible through searching. |
 | `maxHeight`    | Number          | 280        | The maximum height of the options dropdown in pixels. Options beyond it are scrollable.                |
+| `dependsOn`    | String, String  | -          | Shows only options matching another filter's values. See [Dependent filters](#dependent-filters).      |
 
 ## Localization
 

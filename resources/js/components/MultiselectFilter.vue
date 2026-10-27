@@ -78,6 +78,20 @@ export default {
     if (fc) fc.addEventListener('scroll', this.repositionDropdown);
   },
 
+  watch: {
+    dependsOnValues(values, oldValues) {
+      if (JSON.stringify(values) === JSON.stringify(oldValues)) return;
+
+      const selected = [].concat(this.selected || []);
+      const kept = selected.filter(this.matchesDependsOn);
+      if (kept.length === selected.length) return;
+
+      this.isTouched = true;
+      this.selectedOptions = kept;
+      this.emitChanges();
+    },
+  },
+
   unmounted() {
     window.removeEventListener('scroll', this.repositionDropdown);
 
@@ -392,6 +406,17 @@ $red500: #ef4444;
             color: rgba(var(--colors-gray-500)) !important;
             background-color: rgba(var(--colors-gray-800)) !important;
             opacity: 0.9;
+          }
+        }
+
+        &.multiselect__option--group:not(.multiselect__option--disabled):not(.multiselect__option--highlight) {
+          background-color: rgba(var(--colors-gray-100));
+          color: rgba(var(--colors-gray-700));
+          font-weight: 700;
+
+          .dark & {
+            background-color: rgba(var(--colors-gray-800));
+            color: rgba(var(--colors-gray-300));
           }
         }
 
