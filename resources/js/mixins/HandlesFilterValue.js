@@ -11,13 +11,16 @@ export default {
 
   methods: {
     getInitialFilterValuesArray() {
+      return this.parseValuesArray(this.value);
+    },
+
+    parseValuesArray(value) {
       try {
-        if (!this.value) return void 0;
-        if (Array.isArray(this.value)) return this.value;
+        if (!value) return void 0;
+        if (Array.isArray(value)) return value;
 
         // Attempt to parse the field value
-        if (typeof this.value === 'string') {
-          let value = this.value;
+        if (typeof value === 'string') {
           while (typeof value === 'string') value = JSON.parse(value);
           if (Array.isArray(value)) return value;
         }
@@ -26,6 +29,13 @@ export default {
       } catch (e) {
         return void 0;
       }
+    },
+
+    matchesDependsOn(option) {
+      if (!this.dependsOnValues.length) return true;
+
+      const value = option[this.filter.dependsOn.attribute];
+      return value === void 0 || value === null || this.dependsOnValues.includes(String(value));
     },
 
     getValueFromOptions(value) {
@@ -50,8 +60,25 @@ export default {
       return !this.filter.singleSelect;
     },
 
+    dependsOnValues() {
+      if (!this.filter.dependsOn) return [];
+
+      const parent = this.$store.getters[`${this.resourceName}/getFilter`](this.filter.dependsOn.filter);
+      if (!parent) return [];
+
+      return (this.parseValuesArray(parent.currentValue) || []).map(String);
+    },
+
     computedOptions() {
       let options = this.options || [];
+
+      if (this.dependsOnValues.length) {
+        options = this.isOptionGroups
+          ? options
+              .map(option => ({ ...option, values: option.values.filter(this.matchesDependsOn) }))
+              .filter(option => option.values.length)
+          : options.filter(this.matchesDependsOn);
+      }
 
       if (this.isOptionGroups) {
         const allLabels = options.map(opt => opt.values.map(o => o.label)).flat();

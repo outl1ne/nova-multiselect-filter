@@ -106,6 +106,22 @@ abstract class MultiselectFilter extends Filter
     }
 
     /**
+     * Shows only the options whose attribute matches a value selected in another filter.
+     * Options without the attribute are always shown.
+     *
+     * @param string|Filter $filter The parent filter or its class name
+     * @param string $attribute The option key that holds the parent filter's value
+     * @return MultiselectFilter
+     */
+    public function dependsOn($filter, $attribute)
+    {
+        return $this->withMeta(['dependsOn' => [
+            'filter' => $filter instanceof Filter ? $filter->key() : $filter,
+            'attribute' => $attribute,
+        ]]);
+    }
+
+    /**
      * Formats the options available for select.
      *
      * @param $container
@@ -122,13 +138,15 @@ abstract class MultiselectFilter extends Filter
         });
 
         if ($isOptionGroup) {
+            $keys = array_filter(['label', 'value', $this->meta['dependsOn']['attribute'] ?? null]);
+
             return $options
                 ->map(function ($value, $key) {
                     return collect($value + ['value' => $key]);
                 })
                 ->groupBy('group')
-                ->map(function ($value, $key) {
-                    return ['label' => $key, 'values' => $value->map->only(['label', 'value'])->toArray()];
+                ->map(function ($value, $key) use ($keys) {
+                    return ['label' => $key, 'values' => $value->map->only($keys)->toArray()];
                 })
                 ->values()
                 ->toArray();
