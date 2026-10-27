@@ -345,6 +345,7 @@ $red500: #ef4444;
   .multiselect__content-wrapper {
     border-color: rgba(var(--colors-gray-300));
     transition: none;
+    min-height: 100px;
 
     .multiselect__content {
       overflow: hidden;
